@@ -2,10 +2,9 @@
     "name": "web-rtc-server",
     "version": "0.0.0",
     "license": "MIT",
-    "main": "index.js",
     "scripts": {
         "ng": "ng",
-        "start": "ng serve",
+        "start": "node index.js",
         "build": "ng build",
         "test": "ng test",
         "lint": "ng lint",

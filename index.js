@@ -6,7 +6,7 @@ var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var port = process.env.PORT || 3000;
-var mongodbUri = process.env.MONGODB_URI || 'mongodb://localhost:27017/webrtcserver';
+var mongodbUri = process.env.MONGODB_URI || 'mongodb://localhost/webrtcserver';
 var socketsArray = Array();
 
 mongoose.connect(mongodbUri, function(err) {
