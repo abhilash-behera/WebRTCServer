@@ -1,0 +1,53 @@
+.container {
+    text-align: center;
+}
+
+.parent {
+    display: inline-block;
+    margin-top: 7%;
+    position: relative;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+.line {
+    height: 400px;
+    width: 1px;
+    margin-left: 50px;
+    background-color: #cdcece;
+}
+
+.box-authentication {
+    padding-left: 50px;
+}
+
+.example-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.example-container>* {
+    width: 100%;
+}
+
+.demo-tab-content {
+    margin-top: 20px;
+}
+
+.btn-login {
+    margin-top: 20px;
+}
+
+.register-button {
+    margin-top: 20px;
+}
+
+.error-text {
+    color: #f44336;
+    display: block;
+    font-size: 75%;
+    text-align: left;
+    font-family: Roboto, Helvetica Neue, sans-serif;
+    font-weight: 400;
+    line-height: 1.125;
+}

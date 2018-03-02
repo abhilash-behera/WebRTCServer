@@ -1,0 +1,18 @@
+<!-- Image and text -->
+<nav class="navbar navbar-dark" style="background-color:#6A1B9A">
+  <a class="navbar-brand" href="#">
+    <button mat-icon-button>
+      <mat-icon aria-label="Example icon-button with a heart icon">menu</mat-icon>
+    </button>
+    <img src="/assets/only_logo.png" width="45" height="45" class="d-inline-block align-top" alt="">
+      <strong style="font-size:25px">Opaline</strong>
+    
+  </a>
+</nav>
+
+<mat-sidenav-container class="example-container" *ngIf="shouldRun">
+  <mat-sidenav mode="side" [(opened)]="opened" style="background-color: #44ff33">Sidenav content</mat-sidenav>
+  <mat-sidenav-content style="background-color:#fafafa">
+    Main content
+  </mat-sidenav-content>
+</mat-sidenav-container>

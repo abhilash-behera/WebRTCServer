@@ -8,6 +8,7 @@ var io = require('socket.io')(http);
 var port = process.env.PORT || 3000;
 var mongodbUri = process.env.MONGODB_URI || 'mongodb://localhost/webrtcserver';
 var socketsArray = Array();
+var path = require('path');
 
 mongoose.connect(mongodbUri, function(err) {
     if (err) {
@@ -61,7 +62,7 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 app.use(express.static(__dirname + '/dist'));
-app.use(forceSSL());
+//app.use(forceSSL());
 
 io.on('connection', function(socket) {
     console.log('A user connected with id: ' + socket.id);
@@ -351,6 +352,7 @@ io.on('connection', function(socket) {
 });
 
 app.get('/*', function(req, res) {
+    console.log('GET request ' + req.path);
     res.sendFile(path.join(__dirname + '/dist/index.html'));
 });
 
@@ -384,27 +386,37 @@ app.post('/login', function(req, res) {
 });
 
 app.post('/signup', function(req, res) {
-    var user = new User({
-        email: req.body.email,
-        password: req.body.password,
-        socketId: '',
-        status: 'offline'
-    });
+    User.findOne({email:req.body.email},function(err,usr){
+        if(err){
+            console.log('Error in checking user existence: '+err);
+        }else{
+            if(usr){
+                return res.json({success:false,data:'Email already registered.'});
+            }else{
+                var user = new User({
+                    email: req.body.email,
+                    password: req.body.password,
+                    socketId: '',
+                    status: 'offline'
+                });
 
-    user.save(function(err) {
-        if (err) {
-            console.log('Error in creating user: ' + err);
-            return res.json({
-                success: false,
-                data: 'Something went wrong. Please try again.'
-            });
-        } else {
-            console.log('User created successfully: ' + user.email);
-            io.emit('user_joined', user);
-            return res.json({
-                success: true,
-                data: 'Account created successfully.'
-            });
+                user.save(function(err) {
+                    if (err) {
+                        console.log('Error in creating user: ' + err);
+                        return res.json({
+                            success: false,
+                            data: 'Something went wrong. Please try again.'
+                        });
+                    } else {
+                        console.log('User created successfully: ' + user.email);
+                        io.emit('user_joined', user);
+                        return res.json({
+                            success: true,
+                            data: 'Account created successfully.'
+                        });
+                    }
+                });
+            }
         }
     });
 });
